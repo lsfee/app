@@ -2,11 +2,14 @@ name: Deploy to GitHub Pages (Auto-Version)
 
 on:
   push:
-    branches: [ main ] # Sau 'master', verifica pe ce branch lucrezi
+    branches: [ main ] # Sau 'master', verifica branch-ul tau
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # Important pentru a putea face deploy
 
     steps:
     - name: Checkout 🛎️
@@ -20,12 +23,13 @@ jobs:
     - name: Install dependencies 📦
       run: npm install
 
-    # --- AICI E MAGIA: CRESTEM VERSIUNEA AUTOMAT ---
+    # --- AUTOMATIZARE VERSIUNE ---
+    # Genereaza un numar unic bazat pe secunda curenta
+    # si il scrie in public/version.json inainte de build
     - name: Bump Version 🚀
       run: |
-        # Folosim timpul curent (timestamp) ca versiune unica
         NEW_VERSION=$(date +%s)
-        echo "Creating new version: $NEW_VERSION"
+        echo "Creating new version timestamp: $NEW_VERSION"
         echo "{\"version\": \"$NEW_VERSION\"}" > public/version.json
 
     - name: Build 🏗️

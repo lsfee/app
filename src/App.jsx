@@ -7,7 +7,7 @@ import {
 import './index.css';
 import TetrisGame from './Tetris';
 
-// IMPORTĂM DATELE DIN FIȘIERUL JSON (pe care îl vor edita colegii)
+// IMPORTAM DATELE CA SA FIE USOR DE MODIFICAT DIN JSON
 import CONFIG from './data.json'; 
 
 // --- COMPONENTE UI ---
@@ -53,7 +53,7 @@ const CardProiect = ({ proiect, onClick }) => (
   </div>
 );
 
-const UpdateModal = ({ onUpdate, version }) => (
+const UpdateModal = ({ onUpdate }) => (
   <div className="modal-overlay">
     <div className="modal-content">
       <div className="modal-icon-box">
@@ -61,8 +61,8 @@ const UpdateModal = ({ onUpdate, version }) => (
       </div>
       <h2 className="modal-title">Actualizare Disponibilă!</h2>
       <p className="modal-text">
-        Avem noutăți! (v.{version})<br/>
-        Apasă pentru a actualiza conținutul.
+        Am adăugat noutăți în aplicație.<br/>
+        Apasă mai jos pentru a le vedea.
       </p>
       <button className="modal-button" onClick={onUpdate}>
         ACTUALIZEAZĂ ACUM
@@ -79,7 +79,6 @@ const EcranAcasa = () => (
          <h1 className="titlu-mare">{CONFIG.texte.acasa.titlu}</h1>
          <p className="subtitlu">{CONFIG.texte.acasa.descriere}</p>
        </div>
-       {/* CALEA PENTRU PIKA */}
        <img src="/lsfee-web/pika.png" className="pika-img" alt="Pika" onError={(e) => e.target.src = 'pika.png'} />
     </div>
     
@@ -219,49 +218,55 @@ const EcranEchipa = () => {
   );
 };
 
-// --- APP PRINCIPAL ---
+// --- APP PRINCIPAL CU UPDATE AUTOMAT ---
 export default function App() {
   const [paginaCurenta, setPaginaCurenta] = useState('Acasa');
-  const [newVersionAvailable, setNewVersionAvailable] = useState(null);
+  const [newVersionAvailable, setNewVersionAvailable] = useState(false); // Doar true/false
   const [showTetris, setShowTetris] = useState(false);
 
+  // Verificare automata la pornire si cand revii pe pagina
   useEffect(() => {
     const checkVersion = async () => {
       try {
-        // Punem un timestamp la request ca sa nu ia din cache-ul browserului vechiul json
         const res = await fetch('/lsfee-web/version.json?t=' + Date.now());
         if (!res.ok) return;
         const data = await res.json();
-        const serverVer = data.version;
+        const serverVer = String(data.version);
         const localVer = localStorage.getItem('app_version');
 
-        // Daca versiunea de pe net e diferita de cea din telefon
-        if (localVer && localVer !== String(serverVer)) {
-          setNewVersionAvailable(serverVer);
+        if (localVer && localVer !== serverVer) {
+          setNewVersionAvailable(true);
+          // Nu salvam inca, doar aratam modala
         } else {
-          // Daca e prima data sau e la zi, salvam versiunea curenta
-          localStorage.setItem('app_version', serverVer);
+          // E prima data sau e la zi
+          if (!localVer) localStorage.setItem('app_version', serverVer);
         }
       } catch (e) {
-        console.log("Offline sau eroare verificare.");
+        console.log("Eroare verificare versiune (offline?)");
       }
     };
+
     checkVersion();
     window.addEventListener('focus', checkVersion);
     return () => window.removeEventListener('focus', checkVersion);
   }, []);
 
   const performUpdate = async () => {
-    if (newVersionAvailable) {
-      localStorage.setItem('app_version', newVersionAvailable);
-      if ('caches' in window) {
-         try {
-           const names = await caches.keys();
-           await Promise.all(names.map(name => caches.delete(name)));
-         } catch(e) {}
-      }
-      window.location.reload();
+    // Luam versiunea noua "pe curat"
+    try {
+        const res = await fetch('/lsfee-web/version.json?t=' + Date.now());
+        const data = await res.json();
+        localStorage.setItem('app_version', String(data.version));
+    } catch(e) {}
+
+    // Stergem cache-ul si reincarcam
+    if ('caches' in window) {
+       try {
+         const names = await caches.keys();
+         await Promise.all(names.map(name => caches.delete(name)));
+       } catch(e) {}
     }
+    window.location.reload();
   };
 
   return (
@@ -271,7 +276,7 @@ export default function App() {
       <div style={{display: showTetris ? 'none' : 'flex', flexDirection: 'column', height: '100%'}}>
           
           {newVersionAvailable && (
-            <UpdateModal version={newVersionAvailable} onUpdate={performUpdate} />
+            <UpdateModal onUpdate={performUpdate} />
           )}
 
           <div className="top-bar">

@@ -14,13 +14,13 @@
     },
     "despre": {
       "titlu": "Cine suntem?",
-      "descriere": "Înfiinţată în anul 1990, Liga Studenților din Facultatea de Inginerie Electrică și Energetică (LSFEE) este o organizaţie studențească nonprofit, cu caracter socio-profesional, autonomă, creată pentru a apăra şi promova drepturile şi obligaţiile studenților din Facultatea de Inginerie Electrică și Energetică Timişoara.",
+      "descriere": "Înfiinţată în anul 1990, Liga Studenților din Facultatea de Inginerie Electrică și Energetică (LSFEE) este o organizaţie studențească nonprofit.",
       "proiecte": [
         {
           "id": "p1",
           "titlu": "Descoperă Electro",
           "descriere": "Proiect dedicat bobocilor pentru a cunoaște mai bine facultatea.",
-          "detalii": "Se desfăşoară pe 3 etape în prima săptămână a anului universitar. Include vizitarea sălilor de curs, amfiteatrelor şi a laboratoarelor, precum și un tur al zonelor centrale ale orașului.",
+          "detalii": "Se desfăşoară pe 3 etape în prima săptămână a anului universitar.",
           "perioada": "Începutul anului universitar",
           "poza": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80"
         },
@@ -31,14 +31,6 @@
           "detalii": "Promovează ideea de competiție, spiritul de echipă și fair-play-ul.",
           "perioada": "Semestrul 2",
           "poza": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-          "id": "p3",
-          "titlu": "Sesiunea de Comunicări Știintifice Studențești",
-          "descriere": "Oportunitate academică de prestigiu pentru studenți.",
-          "detalii": "Studenții prezintă o lucrare științifică (teoretică și practică).",
-          "perioada": "Luna Mai",
-          "poza": "https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=800&q=80"
         }
       ]
     },
