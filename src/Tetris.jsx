@@ -3,6 +3,7 @@ import { IoArrowBack, IoPlay, IoPause, IoCaretBack, IoCaretForward, IoCaretDown,
 import './index.css';
 
 const WIDTH = 10;
+const GRID_SIZE = 200; // 200 de patratele totale
 
 // FORMELE (TETROMINOES)
 const lTetromino = [
@@ -38,7 +39,7 @@ const iTetromino = [
 
 const THE_TETROMINOES = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino];
 
-// --- HOOK PENTRU APASARE LUNGA (DOAR PENTRU BUTONUL JOS) ---
+// --- HOOK PENTRU APASARE LUNGA (DOAR PENTRU JOS) ---
 function useLongPress(callback = () => {}, ms = 50) {
   const [startLongPress, setStartLongPress] = useState(false);
   const timerRef = useRef(null);
@@ -71,7 +72,6 @@ export default function TetrisGame({ onBack }) {
   const [isGameOver, setIsGameOver] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   
-  // Starea jocului tinuta in Ref pentru performanta maxima
   const game = useRef({
     timerId: null,
     squares: [], 
@@ -91,13 +91,13 @@ export default function TetrisGame({ onBack }) {
     const squares = [];
     
     // 200 patratele de joc
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < GRID_SIZE; i++) {
       const div = document.createElement('div');
       grid.appendChild(div);
       squares.push(div);
     }
-    // 10 patratele baza (invizibile, pentru podea)
-    for (let i = 0; i < 10; i++) {
+    // 10 patratele baza (invizibile, "podeaua")
+    for (let i = 0; i < WIDTH; i++) {
       const div = document.createElement('div');
       div.classList.add('taken');
       div.classList.add('hide-base');
@@ -113,7 +113,7 @@ export default function TetrisGame({ onBack }) {
     return () => clearInterval(game.current.timerId);
   }, []);
 
-  // --- LOGICA JOCULUI ---
+  // --- LOGICA START PIESA NOUA ---
   const startNewPiece = () => {
     game.current.random = Math.floor(Math.random() * THE_TETROMINOES.length);
     game.current.currentRotation = 0;
@@ -121,6 +121,7 @@ export default function TetrisGame({ onBack }) {
     game.current.currentPosition = 4;
     game.current.isFrozen = false;
     
+    // Verificare instantanee Game Over (Daca nu am loc sa apar)
     if (checkCollision(0, 0)) {
       setIsGameOver(true);
       clearInterval(game.current.timerId);
@@ -147,7 +148,7 @@ export default function TetrisGame({ onBack }) {
     });
   };
 
-  // --- VERIFICARE COLIZIUNE (OPTIMIZATA) ---
+  // --- VERIFICARE COLIZIUNE ---
   const checkCollision = (moveOffset, rotationOffset = 0) => {
     const { currentPosition, currentRotation, random, squares } = game.current;
     let nextRotation = (currentRotation + rotationOffset) % 4;
@@ -155,8 +156,11 @@ export default function TetrisGame({ onBack }) {
     
     return nextPiece.some(index => {
       let nextIndex = currentPosition + index + moveOffset;
+      // 1. E in afara gridului?
       if (!squares[nextIndex]) return true; 
+      // 2. E ocupat deja?
       if (squares[nextIndex].classList.contains('taken')) return true;
+      // 3. Verifica marginile (sa nu treaca dintr-o parte in alta)
       if (moveOffset === 1 && (currentPosition + index) % WIDTH === WIDTH - 1) return true;
       if (moveOffset === -1 && (currentPosition + index) % WIDTH === 0) return true;
       return false;
@@ -168,7 +172,7 @@ export default function TetrisGame({ onBack }) {
     if (game.current.isFrozen || isGameOver || isPaused) return;
 
     if (checkCollision(WIDTH)) {
-      freeze();
+      freeze(); // Am atins jos
     } else {
       undraw();
       game.current.currentPosition += WIDTH;
@@ -214,36 +218,58 @@ export default function TetrisGame({ onBack }) {
     }
   }, [isGameOver, isPaused]);
 
+  // --- MECANICA DE INGHETARE SI STERGERE LINII (REPARATA) ---
   const freeze = () => {
     if (game.current.isFrozen) return;
     game.current.isFrozen = true;
 
     const { current, currentPosition, squares } = game.current;
     
+    // 1. Blocheaza piesa curenta
     current.forEach(index => squares[currentPosition + index].classList.add('taken'));
     
-    let linesCleared = 0;
-    for (let i = 0; i < 199; i += WIDTH) {
-      const row = [i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9];
+    // 2. Gaseste liniile pline
+    // Iteram prin toate liniile de sus pana jos
+    let fullRowsIndices = [];
+    
+    // Luam doar zona jucabila (fara baza de jos)
+    for (let i = 0; i < GRID_SIZE; i += WIDTH) {
+      const row = [];
+      for(let j=0; j<WIDTH; j++) row.push(i+j);
 
       if (row.every(index => squares[index].classList.contains('taken'))) {
-        linesCleared++;
-        row.forEach(index => {
-          squares[index].classList.remove('taken');
-          squares[index].classList.remove('tetromino');
-        });
-        const squaresRemoved = squares.splice(i, WIDTH);
-        game.current.squares = squaresRemoved.concat(squares);
-        game.current.squares.forEach(cell => gridRef.current.appendChild(cell));
+        fullRowsIndices.push(i);
       }
     }
 
-    if (linesCleared > 0) {
-      const bonus = [0, 100, 300, 500, 800];
-      setScore(prev => prev + bonus[linesCleared]);
+    // 3. Sterge liniile si reordoneaza (Metoda Sigura)
+    if (fullRowsIndices.length > 0) {
+       fullRowsIndices.forEach(rowIndex => {
+          // Stergem clasele de pe linia plina
+          for(let j=0; j<WIDTH; j++) {
+            squares[rowIndex + j].classList.remove('taken');
+            squares[rowIndex + j].classList.remove('tetromino');
+          }
+          // Scoatem linia din array
+          const removedSquares = squares.splice(rowIndex, WIDTH);
+          // O adaugam la inceputul array-ului (sus de tot) ca linie goala
+          game.current.squares = removedSquares.concat(squares);
+       });
+
+       // 4. Reconstruim Gridul Vizual (DOM)
+       // Aceasta parte asigura ca nu exista "ghost blocks"
+       game.current.squares.forEach(cell => gridRef.current.appendChild(cell));
+
+       // 5. Calculam Scorul (Cu protectie anti-crash)
+       const lines = fullRowsIndices.length;
+       const bonus = [0, 100, 300, 500, 800, 1200]; // Am adaugat 1200 pt siguranta (5 linii)
+       // Daca cumva sunt mai mult de 5 linii, dam maximul
+       const points = bonus[lines] || (lines * 200); 
+       setScore(prev => prev + points);
     } else {
-        setScore(prev => prev + 10);
+       setScore(prev => prev + 10); // Puncte pt piesa pusa
     }
+
     startNewPiece();
   };
 
@@ -262,8 +288,7 @@ export default function TetrisGame({ onBack }) {
   };
 
   // --- CONTROALE ---
-  // Doar JOS are useLongPress (ca sa curga repede)
-  const downPress = useLongPress(moveDown, 60);
+  const downPress = useLongPress(moveDown, 60); // Doar JOS are apasare lunga
 
   return (
     <div className="tetris-container fade-in">
@@ -287,17 +312,11 @@ export default function TetrisGame({ onBack }) {
       <div className="controls-area">
          <div className="d-pad-grid">
             <div></div>
-            {/* ROTIRE: Folosim onPointerDown pentru reactie rapida (tap) */}
             <button className="ctrl-btn rotate-btn" onPointerDown={rotate}><IoCaretUp /></button>
             <div></div>
             
-            {/* STANGA: onPointerDown (tap) */}
             <button className="ctrl-btn" onPointerDown={moveLeft}><IoCaretBack /></button>
-            
-            {/* JOS: Long Press Activat (Hold) */}
             <button className="ctrl-btn" {...downPress}><IoCaretDown /></button>
-            
-            {/* DREAPTA: onPointerDown (tap) */}
             <button className="ctrl-btn" onPointerDown={moveRight}><IoCaretForward /></button>
          </div>
 
