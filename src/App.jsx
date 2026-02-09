@@ -78,7 +78,7 @@ const EcranAcasa = () => (
          <h1 className="titlu-mare">{CONFIG.texte.acasa.titlu}</h1>
          <p className="subtitlu">{CONFIG.texte.acasa.descriere}</p>
        </div>
-       <img src="/lsfee-web/pika.png" className="pika-img" alt="Pika" onError={(e) => e.target.src = 'pika.png'} />
+       <img src="/app/pika.png" className="pika-img" alt="Pika" onError={(e) => e.target.src = 'pika.png'} />
     </div>
     
     <h2 className="sectiune-titlu fade-in-delay">📅 Urmează în LSFEE</h2>
@@ -220,7 +220,7 @@ export default function App() {
   useEffect(() => {
     const checkVersion = async () => {
       try {
-        const res = await fetch('/lsfee-web/version.json?t=' + Date.now());
+        const res = await fetch('/app/version.json?t=' + Date.now());
         if (!res.ok) return;
         const data = await res.json();
         const serverVer = String(data.version);
@@ -242,7 +242,7 @@ export default function App() {
 
   const performUpdate = async () => {
     try {
-        const res = await fetch('/lsfee-web/version.json?t=' + Date.now());
+        const res = await fetch('/app/version.json?t=' + Date.now());
         const data = await res.json();
         localStorage.setItem('app_version', String(data.version));
     } catch(e) {}
