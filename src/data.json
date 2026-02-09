@@ -6,7 +6,7 @@
   "texte": {
     "acasa": {
       "titlu": "Salutare, Voluntarule!",
-      "descriere": "Fii la curent cu pulsul facultății! Calendarul activităților tale este aici.",
+      "descriere": "Fii la curent cu proiectele în desfășurare! Calendarul activităților tale este aici.",
       "noutati": [
         { "id": 1, "titlu": "Cafeaua Electrizantă", "data": "8-12 Dec • 10:00-18:00", "loc": "📍 Holul Electro", "info": "Completarea Chestionarului Codul Drepturilor și Obligațiilor Studentului." },
         { "id": 2, "titlu": "Colinde", "data": "Marți 16 Dec", "loc": "📍 Facultate", "info": "Ne colindăm profesorii în spirit de sărbători." }
@@ -73,8 +73,8 @@
         "descriere": "Cei care coordonează întreaga activitate.",
         "membri": [
           { "nume": "Podeanu Denis", "rol": "Președinte", "an": "III EE", "email": "", "poza": "https://i.postimg.cc/k5wdfdZT/Logo-Liga-02.png" },
-          { "nume": "Golîmba Robert", "rol": "Vicepreședinte", "an": "III ET", "email": "", "poza": "https://i.postimg.cc/k5wdfdZT/Logo-Liga-02.png" },
-          { "nume": "Haicu Andreea", "rol": "Vicepreședinte Interne", "an": "IV EE", "email": "", "poza": "https://i.postimg.cc/k5wdfdZT/Logo-Liga-02.png" },
+          { "nume": "Golîmba Robert", "rol": "Vicepreședinte Relații Externe", "an": "III ET", "email": "", "poza": "https://i.postimg.cc/k5wdfdZT/Logo-Liga-02.png" },
+          { "nume": "Haicu Andreea", "rol": "Vicepreședinte Relații Interne", "an": "IV EE", "email": "", "poza": "https://i.postimg.cc/k5wdfdZT/Logo-Liga-02.png" },
           { "nume": "Vasile Flavius", "rol": "Secretar General", "an": "I Master", "email": "", "poza": "https://i.postimg.cc/k5wdfdZT/Logo-Liga-02.png" },
           { "nume": "Popa Denis", "rol": "Director HR", "an": "IV EE", "email": "", "poza": "https://i.postimg.cc/k5wdfdZT/Logo-Liga-02.png" },
           { "nume": "Gîrghescu Lavinia", "rol": "Director PR", "an": "II ET", "email": "", "poza": "https://i.postimg.cc/k5wdfdZT/Logo-Liga-02.png" }
