@@ -1,0 +1,23 @@
+{
+  "name": "LSFEE Info",
+  "short_name": "LSFEE",
+  "start_url": "/lsfee-web/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#001a33",
+  "orientation": "portrait",
+ "icons": [
+  {
+    "src": "/lsfee-web/icon-v2.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+  {
+    "src": "/lsfee-web/icon-v2.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
+]
+}
+
+
