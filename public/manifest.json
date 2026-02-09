@@ -7,12 +7,12 @@
   "theme_color": "#001a33",
   "icons": [
     {
-      "src": "/app/pika.png",
+      "src": "/app/icon-v2.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/app/pika.png",
+      "src": "/app/icon-v2.png",
       "sizes": "512x512",
       "type": "image/png"
     }
