@@ -67,10 +67,10 @@
       ]
     },
     "voluntariiLunii": [
-      { "dept": "HR", "nume": "Popescu Ion" },
-      { "dept": "PR", "nume": "Maria Ionescu" },
-      { "dept": "FR", "nume": "Andrei & Elena" },
-      { "dept": "LOGISTICĂ", "nume": "Vasile G." }
+      { "dept": "HR", "nume": "Nume Prenume" },
+      { "dept": "PR", "nume": "Nume Prenume" },
+      { "dept": "FR", "nume": "Nume Prenume" },
+      { "dept": "EDU", "nume": "Nume Prenume" }
     ],
     "echipa": [
       {
