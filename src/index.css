@@ -27,7 +27,23 @@ html, body {
 }
 
 /* HEADER & NAV */
-.top-bar { flex-shrink: 0; padding: 15px; padding-top: 20px; text-align: center; background-color: var(--primar); border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 10; }
+/* FIȘIER: src/index.css */
+
+.top-bar { 
+  flex-shrink: 0; 
+  /* Linia de mai jos rezolva problema cu notch-ul alb: */
+  padding-top: max(40px, env(safe-area-inset-top)); 
+  padding-bottom: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center; 
+  background-color: var(--primar); 
+  border-bottom-left-radius: 20px; 
+  border-bottom-right-radius: 20px; 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+  z-index: 10; 
+  margin-top: 0; /* Asigurare extra */
+}
 .top-bar-text { color: white; font-size: 22px; font-weight: 800; letter-spacing: 1px; }
 
 .main-content { flex: 1; overflow-y: auto; position: relative; -webkit-overflow-scrolling: touch; }
