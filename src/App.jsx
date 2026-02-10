@@ -165,7 +165,8 @@ const EcranDespre = () => {
   );
 };
 
-// --- ECRAN ECHIPA MODIFICAT (CU VOLUNTARII LUNII) ---
+// FIȘIER: src/App.jsx -> Caută funcția EcranEchipa și înlocuiește-o cu totul:
+
 const EcranEchipa = () => {
   const [departamentSelectat, setDepartamentSelectat] = useState(null);
 
@@ -195,11 +196,36 @@ const EcranEchipa = () => {
         <p className="paragraf-center">Organigrama echipei noastre.</p>
       </div>
 
-      {/* --- SECTIUNEA NOUA: VOLUNTARII LUNII --- */}
-      <div className="voluntari-section fade-in-delay">
-         <h3 className="sectiune-subtitlu" style={{textAlign: 'center', marginTop: 0}}>
+      {/* 1. LISTA DEPARTAMENTE (Acum apare prima) */}
+      {CONFIG.texte.echipa.map((dept, index) => (
+        <div key={dept.id} className="dept-card fade-in" onClick={() => setDepartamentSelectat(dept)} style={{animationDelay: `${index * 0.1}s`}}>
+          <div className="dept-icon-box">
+             <IoPeople size={24} color="white" />
+          </div>
+          <div style={{flex: 1}}>
+            <h3 className="dept-text">{dept.numeDepartament}</h3>
+            <p className="dept-sub-text">{dept.membri.length} membri activi</p>
+          </div>
+          <div className="arrow-box">
+             <IoArrowForward size={16} color="#00ccff" />
+          </div>
+        </div>
+      ))}
+
+      {/* 2. SPATIU DELIMITATOR */}
+      <div style={{height: '30px'}}></div>
+
+      {/* 3. SECTIUNEA VOLUNTARII LUNII (Acum apare sub lista, cu descriere) */}
+      <div className="voluntari-section fade-in-delay-2">
+         <h3 className="sectiune-subtitlu" style={{textAlign: 'center', marginTop: 0, marginBottom: '5px'}}>
            🌟 Voluntarii Lunii
          </h3>
+         
+         {/* AICI ESTE NOUL TEXT CERUT */}
+         <p className="paragraf-center" style={{fontSize: '13px', color: '#667788', marginBottom: '15px'}}>
+           Aceștia sunt voluntarii cei mai activi în organizație în luna curentă.
+         </p>
+
          <div className="voluntari-grid">
             {CONFIG.texte.voluntariiLunii && CONFIG.texte.voluntariiLunii.map((voluntar, idx) => (
               <div key={idx} className="voluntar-box">
@@ -209,6 +235,10 @@ const EcranEchipa = () => {
             ))}
          </div>
       </div>
+      
+    </div>
+  );
+};
       {/* ---------------------------------------- */}
 
       {CONFIG.texte.echipa.map((dept, index) => (
