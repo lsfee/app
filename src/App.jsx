@@ -78,6 +78,7 @@ const EcranAcasa = () => (
          <h1 className="titlu-mare">{CONFIG.texte.acasa.titlu}</h1>
          <p className="subtitlu">{CONFIG.texte.acasa.descriere}</p>
        </div>
+       {/* Setare pastrata pentru noul cont /app/ */}
        <img src="/app/pika.png" className="pika-img" alt="Pika" onError={(e) => e.target.src = 'pika.png'} />
     </div>
     
@@ -164,6 +165,7 @@ const EcranDespre = () => {
   );
 };
 
+// --- ECRAN ECHIPA MODIFICAT (CU VOLUNTARII LUNII) ---
 const EcranEchipa = () => {
   const [departamentSelectat, setDepartamentSelectat] = useState(null);
 
@@ -193,6 +195,22 @@ const EcranEchipa = () => {
         <p className="paragraf-center">Organigrama echipei noastre.</p>
       </div>
 
+      {/* --- SECTIUNEA NOUA: VOLUNTARII LUNII --- */}
+      <div className="voluntari-section fade-in-delay">
+         <h3 className="sectiune-subtitlu" style={{textAlign: 'center', marginTop: 0}}>
+           🌟 Voluntarii Lunii
+         </h3>
+         <div className="voluntari-grid">
+            {CONFIG.texte.voluntariiLunii && CONFIG.texte.voluntariiLunii.map((voluntar, idx) => (
+              <div key={idx} className="voluntar-box">
+                 <div className="voluntar-dept">{voluntar.dept}</div>
+                 <div className="voluntar-nume">{voluntar.nume}</div>
+              </div>
+            ))}
+         </div>
+      </div>
+      {/* ---------------------------------------- */}
+
       {CONFIG.texte.echipa.map((dept, index) => (
         <div key={dept.id} className="dept-card fade-in" onClick={() => setDepartamentSelectat(dept)} style={{animationDelay: `${index * 0.1}s`}}>
           <div className="dept-icon-box">
@@ -216,7 +234,7 @@ export default function App() {
   const [paginaCurenta, setPaginaCurenta] = useState('Acasa');
   const [newVersionAvailable, setNewVersionAvailable] = useState(false);
 
-  // Verificare automata update
+  // Verificare automata update (Setare pastrata pentru /app/)
   useEffect(() => {
     const checkVersion = async () => {
       try {
