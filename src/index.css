@@ -27,12 +27,10 @@ html, body {
 }
 
 /* HEADER & NAV */
-/* FIȘIER: src/index.css */
-
 .top-bar { 
   flex-shrink: 0; 
-  /* Linia de mai jos rezolva problema cu notch-ul alb: */
-  padding-top: max(40px, env(safe-area-inset-top)); 
+  /* Fix pentru notch/breton telefoane: */
+  padding-top: max(45px, env(safe-area-inset-top)); 
   padding-bottom: 15px;
   padding-left: 15px;
   padding-right: 15px;
@@ -42,7 +40,7 @@ html, body {
   border-bottom-right-radius: 20px; 
   box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
   z-index: 10; 
-  margin-top: 0; /* Asigurare extra */
+  margin-top: -1px; /* Elimina orice dunga alba posibila sus */
 }
 .top-bar-text { color: white; font-size: 22px; font-weight: 800; letter-spacing: 1px; }
 
@@ -105,14 +103,14 @@ html, body {
 .text-loc { color: #8899a6; font-size: 13px; margin-bottom: 8px; font-style: italic; }
 .card-descriere { color: #445566; font-size: 14px; line-height: 1.4; }
 
-/* === MODIFICARE IMAGINI PROIECTE (FULL CHENAR) === */
+/* PROIECTE (FULL CHENAR) */
 .proiect-card { background: white; border-radius: 16px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.1s; }
 .proiect-card:active { transform: scale(0.98); }
 
 .proiect-imagine { 
   width: 100%; 
   height: 160px; 
-  object-fit: cover; /* <--- ASTA UMPLE TOT (Full Chenar) */
+  object-fit: cover; 
   object-position: center;
   background: #eee;
 }
@@ -127,7 +125,7 @@ html, body {
 .proiect-detail-image { 
   width: 100%; 
   height: 250px; 
-  object-fit: cover; /* <--- ASTA UMPLE TOT SI IN PAGINA DE DETALIU */
+  object-fit: cover;
   object-position: center;
 }
 
@@ -163,24 +161,10 @@ html, body {
 .membru-detalii { font-size: 12px; color: #8899a6; }
 .membru-email { font-size: 11px; color: #aabbcc; margin-top: 2px; }
 
-/* ANIMATII & MODAL */
-.fade-in { animation: fadeIn 0.5s ease-out forwards; opacity: 0; }
-.fade-in-delay { animation: fadeIn 0.5s ease-out 0.2s forwards; opacity: 0; }
-.fade-in-delay-2 { animation: fadeIn 0.5s ease-out 0.4s forwards; opacity: 0; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 26, 51, 0.85); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-.modal-content { background: white; width: 85%; max-width: 320px; border-radius: 20px; padding: 30px 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-.modal-icon-box { width: 70px; height: 70px; background: #00ccff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; box-shadow: 0 4px 15px rgba(0, 204, 255, 0.4); }
-.modal-title { color: #001a33; font-size: 20px; font-weight: 800; margin-bottom: 10px; }
-.modal-text { color: #556677; font-size: 14px; line-height: 1.5; margin-bottom: 25px; }
-.modal-button { background: #001a33; color: white; border: none; padding: 15px 30px; border-radius: 12px; font-weight: bold; font-size: 14px; letter-spacing: 1px; width: 100%; cursor: pointer; box-shadow: 0 4px 10px rgba(0, 26, 51, 0.2); transition: transform 0.1s; }
-.modal-button:active { transform: scale(0.95); }
-@keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
 /* === VOLUNTARII LUNII === */
 .voluntari-section {
   margin-bottom: 30px;
-  animation: fadeIn 0.5s ease-out;
+  /* Atentie: Animatia este controlata de clasele utilitare (fade-in-delay-2) in JSX */
 }
 
 .voluntari-grid {
@@ -192,7 +176,7 @@ html, body {
 
 .voluntar-box {
   background: white;
-  border: 2px solid #e6f7ff; /* Bordura fina albastra */
+  border: 2px solid #e6f7ff; 
   border-radius: 16px;
   padding: 15px 10px;
   text-align: center;
@@ -218,4 +202,39 @@ html, body {
   font-weight: 700;
   color: var(--text-titlu);
   line-height: 1.3;
+}
+
+/* === MODAL & ANIMATII FIXATE === */
+
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 26, 51, 0.85); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+.modal-content { background: white; width: 85%; max-width: 320px; border-radius: 20px; padding: 30px 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.modal-icon-box { width: 70px; height: 70px; background: #00ccff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; box-shadow: 0 4px 15px rgba(0, 204, 255, 0.4); }
+.modal-title { color: #001a33; font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+.modal-text { color: #556677; font-size: 14px; line-height: 1.5; margin-bottom: 25px; }
+.modal-button { background: #001a33; color: white; border: none; padding: 15px 30px; border-radius: 12px; font-weight: bold; font-size: 14px; letter-spacing: 1px; width: 100%; cursor: pointer; box-shadow: 0 4px 10px rgba(0, 26, 51, 0.2); transition: transform 0.1s; }
+.modal-button:active { transform: scale(0.95); }
+@keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+
+/* --- ANIMATII FIXE (Care NU dispar) --- */
+.fade-in, .fade-in-delay, .fade-in-delay-2 {
+  opacity: 0; /* Porneste invizibil */
+  animation-name: fadeIn;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards; /* <--- CRUCIAL: Elementul RAMANE vizibil la final */
+}
+
+.fade-in { animation-delay: 0s; }
+.fade-in-delay { animation-delay: 0.2s; }
+.fade-in-delay-2 { animation-delay: 0.4s; }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
