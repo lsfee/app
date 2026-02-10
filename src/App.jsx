@@ -164,7 +164,7 @@ const EcranDespre = () => {
   );
 };
 
-// --- ECRAN ECHIPA CORECTAT (Voluntarii sunt JOS, Lista e SUS) ---
+// --- ECRAN ECHIPA ---
 const EcranEchipa = () => {
   const [departamentSelectat, setDepartamentSelectat] = useState(null);
 
@@ -210,10 +210,10 @@ const EcranEchipa = () => {
         </div>
       ))}
 
-      {/* 2. SPATIU INTRE SECTIUNI */}
+      {/* 2. SPATIU DELIMITATOR */}
       <div style={{height: '30px'}}></div>
 
-      {/* 3. VOLUNTARII LUNII (LA FINAL) */}
+      {/* 3. VOLUNTARII LUNII (LA FINAL + ANIMATIE) */}
       <div className="voluntari-section fade-in-delay-2">
          <h3 className="sectiune-subtitlu" style={{textAlign: 'center', marginTop: 0, marginBottom: '5px'}}>
            🌟 Voluntarii Lunii
