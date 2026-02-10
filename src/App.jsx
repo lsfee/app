@@ -78,7 +78,6 @@ const EcranAcasa = () => (
          <h1 className="titlu-mare">{CONFIG.texte.acasa.titlu}</h1>
          <p className="subtitlu">{CONFIG.texte.acasa.descriere}</p>
        </div>
-       {/* Setare pastrata pentru noul cont /app/ */}
        <img src="/app/pika.png" className="pika-img" alt="Pika" onError={(e) => e.target.src = 'pika.png'} />
     </div>
     
@@ -165,8 +164,7 @@ const EcranDespre = () => {
   );
 };
 
-// FIȘIER: src/App.jsx -> Caută funcția EcranEchipa și înlocuiește-o cu totul:
-
+// --- ECRAN ECHIPA CORECTAT (Voluntarii sunt JOS, Lista e SUS) ---
 const EcranEchipa = () => {
   const [departamentSelectat, setDepartamentSelectat] = useState(null);
 
@@ -196,7 +194,7 @@ const EcranEchipa = () => {
         <p className="paragraf-center">Organigrama echipei noastre.</p>
       </div>
 
-      {/* 1. LISTA DEPARTAMENTE (Acum apare prima) */}
+      {/* 1. LISTA DEPARTAMENTE */}
       {CONFIG.texte.echipa.map((dept, index) => (
         <div key={dept.id} className="dept-card fade-in" onClick={() => setDepartamentSelectat(dept)} style={{animationDelay: `${index * 0.1}s`}}>
           <div className="dept-icon-box">
@@ -212,16 +210,15 @@ const EcranEchipa = () => {
         </div>
       ))}
 
-      {/* 2. SPATIU DELIMITATOR */}
+      {/* 2. SPATIU INTRE SECTIUNI */}
       <div style={{height: '30px'}}></div>
 
-      {/* 3. SECTIUNEA VOLUNTARII LUNII (Acum apare sub lista, cu descriere) */}
+      {/* 3. VOLUNTARII LUNII (LA FINAL) */}
       <div className="voluntari-section fade-in-delay-2">
          <h3 className="sectiune-subtitlu" style={{textAlign: 'center', marginTop: 0, marginBottom: '5px'}}>
            🌟 Voluntarii Lunii
          </h3>
          
-         {/* AICI ESTE NOUL TEXT CERUT */}
          <p className="paragraf-center" style={{fontSize: '13px', color: '#667788', marginBottom: '15px'}}>
            Aceștia sunt voluntarii cei mai activi în organizație în luna curentă.
          </p>
@@ -239,32 +236,12 @@ const EcranEchipa = () => {
     </div>
   );
 };
-      {/* ---------------------------------------- */}
-
-      {CONFIG.texte.echipa.map((dept, index) => (
-        <div key={dept.id} className="dept-card fade-in" onClick={() => setDepartamentSelectat(dept)} style={{animationDelay: `${index * 0.1}s`}}>
-          <div className="dept-icon-box">
-             <IoPeople size={24} color="white" />
-          </div>
-          <div style={{flex: 1}}>
-            <h3 className="dept-text">{dept.numeDepartament}</h3>
-            <p className="dept-sub-text">{dept.membri.length} membri activi</p>
-          </div>
-          <div className="arrow-box">
-             <IoArrowForward size={16} color="#00ccff" />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
 
 // --- APP PRINCIPAL ---
 export default function App() {
   const [paginaCurenta, setPaginaCurenta] = useState('Acasa');
   const [newVersionAvailable, setNewVersionAvailable] = useState(false);
 
-  // Verificare automata update (Setare pastrata pentru /app/)
   useEffect(() => {
     const checkVersion = async () => {
       try {
