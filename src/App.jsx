@@ -125,7 +125,7 @@ const EcranDespre = () => {
   // Functii pentru deschiderea link-urilor
   const deschideHarta = () => {
     // Deschide Google Maps la adresa Facultatii (Electro)
-    window.open("https://www.google.com/maps/search/?api=1&query=Bulevardul+Vasile+Pârvan+2,+Timișoara", "_blank");
+    window.open("https://maps.app.goo.gl/aEMHuJemf8n2R4g27", "_blank");
   };
 
   const deschideMail = () => {
