@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { 
   IoHome, IoHomeOutline, IoPeople, IoPeopleOutline, IoInformationCircle, IoInformationCircleOutline,
   IoCalendar, IoLocationSharp, IoArrowForward, IoTimeOutline, IoChevronBack, IoMail,
-  IoCloudDownloadOutline
-} from "react-icons/io5";
+  IoCloudDownloadOutline, IoLogoInstagram, IoLogoFacebook 
+} from "react-icons/io5"; // <--- AM ADAUGAT LOGO-URILE AICI
 import './index.css';
 
 // IMPORTAM DATELE DIN JSON
@@ -116,10 +116,32 @@ const EcranProiectDetaliat = ({ proiect, onBack }) => (
   </div>
 );
 
+// --- ECRAN DESPRE ACTUALIZAT (LINK-URI & SOCIAL MEDIA) ---
 const EcranDespre = () => {
   const [proiectSelectat, setProiectSelectat] = useState(null);
 
   useEffect(() => { window.scrollTo(0, 0); }, [proiectSelectat]);
+
+  // Functii pentru deschiderea link-urilor
+  const deschideHarta = () => {
+    // Deschide Google Maps la adresa Facultatii (Electro)
+    window.open("https://www.google.com/maps/search/?api=1&query=Bulevardul+Vasile+Pârvan+2,+Timișoara", "_blank");
+  };
+
+  const deschideMail = () => {
+    // Deschide aplicatia de mail cu adresa completata
+    window.location.href = "mailto:lsfee.upt@gmail.com";
+  };
+
+  const deschideInsta = () => {
+    // Deschide Instagram LSFEE
+    window.open("https://www.instagram.com/lsfee.upt/", "_blank");
+  };
+
+  const deschideFacebook = () => {
+    // Deschide Facebook LSFEE
+    window.open("https://www.facebook.com/LSFEE.UPT", "_blank");
+  };
 
   if (proiectSelectat) {
     return <EcranProiectDetaliat proiect={proiectSelectat} onBack={() => setProiectSelectat(null)} />;
@@ -136,18 +158,35 @@ const EcranDespre = () => {
         <p className="paragraf">{CONFIG.texte.despre.descriere}</p>
       </div>
       
-      <div className="row-container fade-in-delay-2">
-        <div className="info-card">
+      {/* RANDUL 1: Locatie si Mail */}
+      <div className="row-container fade-in-delay-2" style={{marginBottom: '10px'}}>
+        <div className="info-card" onClick={deschideHarta} style={{cursor: 'pointer'}}>
           <div className="icon-bula">
             <IoLocationSharp size={24} color="#00ccff" />
           </div>
           <p className="info-box-text">Sala A022</p>
         </div>
-        <div className="info-card">
+        <div className="info-card" onClick={deschideMail} style={{cursor: 'pointer'}}>
           <div className="icon-bula">
             <IoMail size={24} color="#00ccff" />
           </div>
-          <p className="info-box-text">lsfee.upt@gmail.com</p>
+          <p className="info-box-text">Trimite Mail</p>
+        </div>
+      </div>
+
+      {/* RANDUL 2: Social Media (Instagram & Facebook) */}
+      <div className="row-container fade-in-delay-2">
+        <div className="info-card" onClick={deschideInsta} style={{cursor: 'pointer'}}>
+          <div className="icon-bula">
+            <IoLogoInstagram size={24} color="#00ccff" />
+          </div>
+          <p className="info-box-text">@lsfee.upt</p>
+        </div>
+        <div className="info-card" onClick={deschideFacebook} style={{cursor: 'pointer'}}>
+          <div className="icon-bula">
+            <IoLogoFacebook size={24} color="#00ccff" />
+          </div>
+          <p className="info-box-text">LSFEE UPT</p>
         </div>
       </div>
 
