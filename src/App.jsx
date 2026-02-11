@@ -135,12 +135,12 @@ const EcranDespre = () => {
 
   const deschideInsta = () => {
     // Deschide Instagram LSFEE
-    window.open("https://www.instagram.com/lsfee.upt/", "_blank");
+    window.open("https://www.instagram.com/lsfee/", "_blank");
   };
 
   const deschideFacebook = () => {
     // Deschide Facebook LSFEE
-    window.open("https://www.facebook.com/LSFEE.UPT", "_blank");
+    window.open("https://www.facebook.com/LSFEE Timișoara", "_blank");
   };
 
   if (proiectSelectat) {
@@ -170,7 +170,7 @@ const EcranDespre = () => {
           <div className="icon-bula">
             <IoMail size={24} color="#00ccff" />
           </div>
-          <p className="info-box-text">Trimite Mail</p>
+          <p className="info-box-text">lsfee.upt@gmail.com</p>
         </div>
       </div>
 
