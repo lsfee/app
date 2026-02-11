@@ -8,8 +8,9 @@
       "titlu": "Salutare, Voluntarule!",
       "descriere": "Fii la curent cu proiectele în desfășurare! Calendarul activităților tale este aici.",
       "noutati": [
-        { "id": 1, "titlu": "Cafeaua Electrizantă", "data": "8-12 Dec • 10:00-18:00", "loc": "📍 Holul Electro", "info": "Completarea Chestionarului Codul Drepturilor și Obligațiilor Studentului." },
-        { "id": 2, "titlu": "Colinde", "data": "Marți 16 Dec", "loc": "📍 Facultate", "info": "Ne colindăm profesorii în spirit de sărbători." }
+        { "id": 1, "titlu": "Recrutări", "data": "2-10 Mar • 10:00-18:00", "loc": "📍 Holul Electro", "info": "Ne atragem viitori colegi și membri ai organizației" },
+        { "id": 2, "titlu": "Cupa Poli", "data": "Mai", "loc": "📍 Baze Sportive/spații amenajate", "info": "Sporturile au loc în fiecare weekend din lună" },
+        { "id": 3, "titlu": "Cafeaua Electrizantă", "data": "25-30 Mai", "loc": "📍 Holul Electro", "info": "Completarea CDOS în schimbul unei Cafele" }
       ]
     },
     "despre": {
