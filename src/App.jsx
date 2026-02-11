@@ -135,12 +135,12 @@ const EcranDespre = () => {
 
   const deschideInsta = () => {
     // Deschide Instagram LSFEE
-    window.open("https://www.instagram.com/lsfee/", "_blank");
+    window.open("https://www.instagram.com/lsfee?igsh=OGdqdmVwN2dmcXR4", "_blank");
   };
 
   const deschideFacebook = () => {
     // Deschide Facebook LSFEE
-    window.open("https://www.facebook.com/LSFEE Timișoara", "_blank");
+    window.open("https://www.facebook.com/LSFEETimisoara", "_blank");
   };
 
   if (proiectSelectat) {
@@ -180,13 +180,13 @@ const EcranDespre = () => {
           <div className="icon-bula">
             <IoLogoInstagram size={24} color="#00ccff" />
           </div>
-          <p className="info-box-text">@lsfee.upt</p>
+          <p className="info-box-text">@lsfee</p>
         </div>
         <div className="info-card" onClick={deschideFacebook} style={{cursor: 'pointer'}}>
           <div className="icon-bula">
             <IoLogoFacebook size={24} color="#00ccff" />
           </div>
-          <p className="info-box-text">LSFEE UPT</p>
+          <p className="info-box-text">LSFEE Timișoara</p>
         </div>
       </div>
 
